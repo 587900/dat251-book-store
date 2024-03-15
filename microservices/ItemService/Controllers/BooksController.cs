@@ -26,41 +26,41 @@ namespace ItemService.Controllers
         [HttpGet("items/{id}")]
         public async Task<ActionResult<Book>> GetItem(ulong id)
         {
-            var item = await _context.Books.FindAsync(id);
+            var book = await _context.Books.FindAsync(id);
 
-            if (item == null)
+            if (book == null)
             {
                 return NotFound();
             }
 
-            return item;
+            return book;
         }
 
         // GET: store/isbn/5
         [HttpGet("isbn/{id}")]
         public async Task<ActionResult<Book>> GetByISBN(ulong isbn)
         {
-            var item = _context.Books.First(b => b.ISBN == isbn);
+            var book = _context.Books.First(b => b.ISBN == isbn);
 
-            if (item == null)
+            if (book == null)
             {
                 return NotFound();
             }
 
-            return item;
+            return book;
         }
 
         // PUT: store/items/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutItem(ulong id, Book item)
+        public async Task<IActionResult> PutItem(ulong id, Book book)
         {
-            if (id != item.Id)
+            if (id != book.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(item).State = EntityState.Modified;
+            _context.Entry(book).State = EntityState.Modified;
 
             try
             {
@@ -84,25 +84,25 @@ namespace ItemService.Controllers
         // POST: store/items
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Book>> PostItem(Book b)
+        public async Task<ActionResult<Book>> PostItem(Book book)
         {
-            _context.Books.Add(b);
+            _context.Books.Add(book);
             await _context.SaveChangesAsync();
             
-            return CreatedAtAction(nameof(GetItem), new { id = b.Id }, b);
+            return CreatedAtAction(nameof(GetItem), new { id = book.Id }, book);
         }
 
         // DELETE: store/items/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteItem(long id)
         {
-            var item = await _context.Books.FindAsync(id);
-            if (item == null)
+            var book = await _context.Books.FindAsync(id);
+            if (book == null)
             {
                 return NotFound();
             }
 
-            _context.Books.Remove(item);
+            _context.Books.Remove(book);
             await _context.SaveChangesAsync();
 
             return NoContent();
