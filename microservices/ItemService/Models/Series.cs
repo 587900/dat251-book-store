@@ -2,9 +2,9 @@
 {
     public class Series
     {
-        public long Id { get; set; }
+        public ulong Id { get; set; }
         public string? DisplayName { get; set; }
-        public Book[] Books { get; set; } = null!;
+        public ICollection<Book> Books { get; } = [];
         public string[] Authors { get; set; } = null!;
     }
 }

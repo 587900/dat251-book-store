@@ -11,15 +11,15 @@ namespace ItemService.Controllers
 {
     [Route("store")]
     [ApiController]
-    public class BooksController(BookContext context) : ControllerBase
+    public class ItemServiceController(ItemServiceContext context) : ControllerBase
     {
-        private readonly BookContext _context = context;
+        private readonly ItemServiceContext _context = context;
 
         // GET: store/items
         [HttpGet("items")]
         public async Task<ActionResult<IEnumerable<Book>>> GetItems()
         {
-            return await _context.Books.ToListAsync();
+            return await _context.Books.Include(b => b.Series).ToListAsync();
         }
 
         // GET: store/items/5
@@ -37,10 +37,10 @@ namespace ItemService.Controllers
         }
 
         // GET: store/isbn/5
-        [HttpGet("isbn/{id}")]
-        public async Task<ActionResult<Book>> GetByISBN(ulong isbn)
+        [HttpGet("isbn/{isbn}")]
+        public async Task<ActionResult<Book>> GetItemByISBN(ulong isbn)
         {
-            var book = _context.Books.First(b => b.ISBN == isbn);
+            Book? book = await _context.Books.FirstOrDefaultAsync(b => b.ISBN == isbn);
 
             if (book == null)
             {
@@ -52,7 +52,7 @@ namespace ItemService.Controllers
 
         // PUT: store/items/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPut("items/{id}")]
         public async Task<IActionResult> PutItem(ulong id, Book book)
         {
             if (id != book.Id)
@@ -83,18 +83,18 @@ namespace ItemService.Controllers
 
         // POST: store/items
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Book>> PostItem(Book book)
+        [HttpPost("items/{id}")]
+        public async Task<IActionResult> PostItem(ulong id, Book book)
         {
             _context.Books.Add(book);
             await _context.SaveChangesAsync();
             
-            return CreatedAtAction(nameof(GetItem), new { id = book.Id }, book);
+            return Ok();
         }
 
         // DELETE: store/items/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteItem(long id)
+        [HttpDelete("items/{id}")]
+        public async Task<IActionResult> DeleteItem(ulong id)
         {
             var book = await _context.Books.FindAsync(id);
             if (book == null)
