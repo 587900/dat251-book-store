@@ -9,6 +9,7 @@ import Badge from '@mui/material/Badge';
 import MailOutlinedIcon from '@mui/icons-material/MailOutline';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 
+import Logo from '../assets/logo/Logo1.png'
 const books = [
   { title: "The Great Gatsby", author: "Ernest Hemmingway" },
   { title: "Moby Dick", author: "J.K. Tolkien" },
@@ -136,16 +137,17 @@ const Navbar = () => {
               justifyItems: "center",
             }}
           >
-            <Typography
-              variant="h2"
-              noWrap
-              component="div"
-              sx={{ display: { xs: "none", sm: "block" }, pl: 1, pr: 2 }}
-              fontWeight={"bold"}
-              color={"text.secondary"}
-            >
-              BookHaven
-            </Typography>
+            <Link
+                to="/"
+                sx={{ color: "#fff", backgroundColor: "inherit" }}
+              >
+                <img
+                  src={Logo}
+                  className="d-sm-block me-3 logo"
+                  alt="Logo The Book Club"
+                  style={{ width: "172px", height: "40px" }}
+                />
+              </Link>
             <Box sx={{ flexGrow: 1, px: 4, ml: 2 }}>
               <SearchBar suggestions={[...books]} />
             </Box>

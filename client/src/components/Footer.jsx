@@ -41,7 +41,7 @@ const Footer = () => {
               </Typography>
               <Divider
                 sx={{
-                  backgroundColor: (theme) => theme.palette.primary.dark,
+                  backgroundColor: (theme) => theme.palette.background.default,
                   mb: 1,
                   height: "2px",
                   opacity: 1, // Set opacity to 1
@@ -89,7 +89,7 @@ const Footer = () => {
               </Typography>
               <Divider
                 sx={{
-                  backgroundColor: (theme) => theme.palette.primary.dark,
+                  backgroundColor: (theme) => theme.palette.background.default,
                   mb: 1,
                   height: "2px",
                   opacity: 1, // Set opacity to 1
@@ -136,7 +136,7 @@ const Footer = () => {
               </Typography>
               <Divider
                 sx={{
-                  backgroundColor: (theme) => theme.palette.primary.dark,
+                  backgroundColor: (theme) => theme.palette.background.default,
                   mb: 1,
                   height: "2px",
                   opacity: 1, // Set opacity to 1
