@@ -1,0 +1,35 @@
+name: CICD Testing
+on: [push, pull_request]
+jobs:
+  test-microservices:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.0.x
+    - name: Navigate into Microservices Directory
+      run: cd microservices
+    - name: Restore Dependencies
+      run: dotnet restore
+    - name: Build Microservices
+      run: dotnet build --no-restore
+    - name: Test Microservices
+      run: dotnet test --no-build --verbosity normal
+  test-client:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 14
+    - name: Navigate into Client Directory
+      run: cd client
+    - name: Install Dependencies
+      run: npm install
+    - name: Test Frontend
+      run: npm test
