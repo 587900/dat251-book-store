@@ -1,15 +1,28 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem, Box, useTheme, useMediaQuery } from '@mui/material';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import SearchBar from './SearchBar'; // Ensure this path is correct
-import MoreIcon from '@mui/icons-material/MoreVert'; // For mobile menu
-import Badge from '@mui/material/Badge';
-import MailOutlinedIcon from '@mui/icons-material/MailOutline';
-import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  Menu,
+  MenuItem,
+  Box,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import SearchBar from "./SearchBar"; // Ensure this path is correct
+import MoreIcon from "@mui/icons-material/MoreVert"; // For mobile menu
+import Badge from "@mui/material/Badge";
+import MailOutlinedIcon from "@mui/icons-material/MailOutline";
+import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
+import LoginIcon from "@mui/icons-material/Login";
+import LogoutIcon from "@mui/icons-material/Logout";
 
-import Logo from '../assets/logo/Logo1.png'
+import Logo from "../assets/logo/Logo1.png";
+import LogoIcon from "../assets/logo/Logo1_Icon_Only.png"
 const books = [
   { title: "The Great Gatsby", author: "Ernest Hemmingway" },
   { title: "Moby Dick", author: "J.K. Tolkien" },
@@ -22,29 +35,47 @@ const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
-  const handleProfileMenuOpen = (event) => setAnchorEl(event.currentTarget);
-  const handleMobileMenuOpen = (event) =>
-    setMobileMoreAnchorEl(event.currentTarget);
-  const handleClose = () => {
-    setAnchorEl(null);
+  const isMenuOpen = Boolean(anchorEl);
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const currentUser = true;
+
+  const handleProfileMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
 
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+    handleMobileMenuClose();
+  };
+
+  const handleMobileMenuOpen = (event) => {
+    setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const handleLogout = () => {
+    return;
+  };
+
+  const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{
-        vertical: "top",
+        vertical: "bottom",
         horizontal: "right",
       }}
-      id="primary-search-account-menu"
+      id={menuId}
       keepMounted
       transformOrigin={{
         vertical: "top",
         horizontal: "right",
       }}
-      open={Boolean(anchorEl)}
-      onClose={handleClose}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
       PaperProps={{
         elevation: 0,
         sx: {
@@ -72,48 +103,103 @@ const Navbar = () => {
         },
       }}
     >
-      <MenuItem onClick={handleClose}>Profile</MenuItem>
-      <MenuItem onClick={handleClose}>My Account</MenuItem>
+      <Link to="/profile" color="inherit">
+        <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      </Link>
+
+      {currentUser !== null ? (
+        <Box>
+          <Link to="/">
+            <MenuItem onClick={handleLogout}>
+              <Typography
+                rel="noopener follow"
+                onClick={handleLogout}
+                color="inherit"
+              >
+                Logout
+              </Typography>
+            </MenuItem>
+          </Link>
+
+          <MenuItem>
+            <Typography variant="subtitle2">
+              {currentUser?.displayName}
+            </Typography>
+          </MenuItem>
+        </Box>
+      ) : (
+        <Link to="/login" rel="noopener follow" color="inherit">
+          <MenuItem>Login</MenuItem>
+        </Link>
+      )}
     </Menu>
   );
 
+  const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      id="primary-search-account-menu-mobile"
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      id={mobileMenuId}
       keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
-      open={Boolean(mobileMoreAnchorEl)}
-      onClose={handleClose}
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+      <MenuItem onClick={handleMobileMenuClose}>
         <IconButton size="large" color="primary">
-          <Badge badgeContent={4} color="secondary">
-            <MailOutlinedIcon />
-          </Badge>
+          <ShoppingCartIcon fontSize="large" />
         </IconButton>
-        <p>Messages</p>
+        <Typography color="primary">Cart</Typography>
       </MenuItem>
-      <MenuItem>
-        <IconButton size="large" color="inherit">
-          <Badge badgeContent={11} color="error">
-            <NotificationsOutlinedIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
+      <Link to="/profile" color="inherit">
+        <MenuItem onClick={handleMobileMenuClose}>
+          <IconButton
+            size="large"
+            aria-label="account of current user"
+            aria-controls="primary-search-account-menu"
+            aria-haspopup="false"
+            color="primary"
+          >
+            <AccountCircle />
+          </IconButton>
+          <Typography color="primary">Profile</Typography>
+        </MenuItem>
+      </Link>
+      {currentUser !== null ? (
+        <Box>
+          <Link to="/">
+            <MenuItem onClick={handleLogout}>
+              <IconButton size="large" aria-label="logout" color="primary">
+                <LogoutIcon />
+              </IconButton>
+              <Typography
+                rel="noopener follow"
+                onClick={handleLogout}
+                color="primary"
+              >
+                Sign out
+              </Typography>
+            </MenuItem>
+          </Link>
+        </Box>
+      ) : (
+        <Link to="/login" rel="noopener follow" color="inherit">
+          <MenuItem onClick={handleMobileMenuClose}>
+            <IconButton size="large" aria-label="login" color="inherit">
+              <LoginIcon />
+            </IconButton>
+
+            <span>Sign in</span>
+          </MenuItem>
+        </Link>
+      )}
     </Menu>
   );
 
@@ -137,59 +223,77 @@ const Navbar = () => {
               justifyItems: "center",
             }}
           >
-            <Link
+            
+            {isMobile ? (
+              <Link
                 to="/"
                 sx={{ color: "#fff", backgroundColor: "inherit" }}
               >
                 <img
-                  src={Logo}
+                  src={LogoIcon}
                   className="d-sm-block me-3 logo"
-                  alt="Logo The Book Club"
-                  style={{ width: "172px", height: "40px" }}
+                  alt="Logo The Book Club Icon Only"
+                  style={{ width: "45px", height: "45px" }}
                 />
               </Link>
+            ) : (
+              <Link to="/" sx={{ color: "#fff", backgroundColor: "inherit" }}>
+              <img
+                src={Logo}
+                className="d-sm-block me-3 logo"
+                alt="Logo The Book Club"
+                style={{ width: "172px", height: "40px" }}
+              />
+            </Link>
+            )}
             <Box sx={{ flexGrow: 1, px: 4, ml: 2 }}>
               <SearchBar suggestions={[...books]} />
             </Box>
-            <Box sx={{px: 2}}>
-              <Link
-                to="#"
-                style={{ textDecoration: "none" }}
-                color="primary.main"
-                rel="noopener follow"
-              >
-                <Typography variant="h4" color="primary">
-                  Sign In
-                </Typography>
-              </Link>
-            </Box>
-
-            <IconButton sx={{ px: 2 }} color="primary">
-              <ShoppingCartIcon fontSize="large" />
-            </IconButton>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls="primary-search-account-menu"
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="primary"
-              sx={{ px: 2 }}
-            >
-              <AccountCircle fontSize="large" />
-            </IconButton>
-            {isMobile && (
+            {/*#######################################################################*/}
+            {/*MORE ICON*/}
+            {/*#######################################################################*/}
+            {isMobile ? (
               <IconButton
                 size="large"
                 aria-label="show more"
-                aria-controls="primary-search-account-menu-mobile"
+                aria-controls={mobileMenuId}
                 aria-haspopup="true"
                 onClick={handleMobileMenuOpen}
-                color="primary.main"
+                color="secondary"
               >
                 <MoreIcon />
               </IconButton>
+            ) : (
+              <>
+                <Box sx={{ px: 2 }}>
+                  <Link
+                    to="#"
+                    style={{ textDecoration: "none" }}
+                    color="primary.main"
+                    rel="noopener follow"
+                  >
+                    <Typography variant="h4" color="primary">
+                      Sign In
+                    </Typography>
+                  </Link>
+                </Box>
+
+                <IconButton sx={{ px: 2 }} color="primary">
+                  <ShoppingCartIcon fontSize="large" />
+                </IconButton>
+                <IconButton
+                  size="large"
+                  edge="end"
+                  aria-label="account of current user"
+                  aria-controls="primary-search-account-menu"
+                  aria-haspopup="true"
+                  onClick={handleProfileMenuOpen}
+                  color="primary"
+                  sx={{ px: 2 }}
+                >
+                  <AccountCircle fontSize="large" />
+                </IconButton>
+              </>
             )}
           </Toolbar>
         </AppBar>

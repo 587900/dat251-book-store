@@ -26,7 +26,8 @@ export const tokens = (mode) => ({
       }
     : {
         white: {
-          1: "#F8F7F7",
+          1: "#FFFFFF",
+          3: "#F8F7F7",
           2: "#f5f5f5",
         },
 

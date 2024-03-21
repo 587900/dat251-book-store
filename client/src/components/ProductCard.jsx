@@ -46,7 +46,9 @@ const ProductCard = ({
         }}
       />
       {/* Text details beneath the image */}
-      <CardContent sx={{ pb: 0 }}>
+      <CardContent
+        sx={{ pb: 0, backgroundColor: "background.paper" }}
+      >
         <Typography variant="h4" sx={{ mb: 1 }}>
           {new Intl.NumberFormat("en-US", {
             style: "currency",

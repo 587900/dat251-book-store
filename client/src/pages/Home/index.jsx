@@ -148,126 +148,60 @@ const Home = () => {
         ))}
       </Grid>
 
-      <Grid
-        container
-        spacing={2}
-        sx={{ px: 1,  display: "flex", mt: 4, pt: 4 }}
-      >
-        <Grid item xs={3}>
-          <Typography
-            variant="h4"
-            sx={{ my: 4, pl: 1, fontWeight: "bold" }}
-            color={"text.secondary"}
-          >
+      <Grid container spacing={2} sx={{ px: 1, mt: 4, pt: 4 }}>
+        <Grid item xs={12} md={3}>
+          {/* Deals Section */}
+          <Typography variant="h4" sx={{ my: 4, pl: 1, fontWeight: "bold" }} color="text.secondary">
             Deals
           </Typography>
-          <Grid container direction="column">
-            <Grid item xs={12} sx={{ my: 2 }}>
-              <Card
-                sx={{
-                  maxWidth: 345,
-                  maxHeight: 750,
-                  overflow: "hidden",
-                  mx: 1,
-                }}
-                style={{
-                  boxShadow: "1px -1px 2px #BC6F03, 0px 1px 2px #4C231A",
-                }}
-              >
-                <CardActionArea component={Link} to={"#"} target="_blank">
-                  <CardMedia
-                    component="img"
-                    sx={{ maxHeight: 275, overflow: "hidden" }}
-                    image={DealsOne}
-                    alt="Car"
-                  />
-                </CardActionArea>
-              </Card>
-            </Grid>
-            <Grid item xs={12} sx={{ my: 2 }}>
-              <Card
-                sx={{
-                  maxWidth: 345,
-                  maxHeight: 750,
-                  overflow: "hidden",
-                  mx: 1,
-                }}
-                style={{
-                  boxShadow: "1px -1px 2px #BC6F03, 0px 1px 2px #4C231A",
-                }}
-              >
-                <CardActionArea component={Link} to={"#"} target="_blank">
-                  <CardMedia
-                    component="img"
-                    sx={{ maxHeight: 275, overflow: "hidden" }}
-                    image={DealsTwo}
-                    alt="Car"
-                  />
-                </CardActionArea>
-              </Card>
-            </Grid>
-            <Grid item xs={12} sx={{ my: 2 }}>
-              <Card
-                sx={{
-                  maxWidth: 345,
-                  maxHeight: 750,
-                  overflow: "hidden",
-                  mx: 1,
-                }}
-                style={{
-                  boxShadow: "1px -1px 2px #BC6F03, 0px 1px 2px #4C231A",
-                }}
-              >
-                <CardActionArea component={Link} to={"#"} target="_blank">
-                  <CardMedia
-                    component="img"
-                    sx={{ maxHeight: 275, overflow: "hidden" }}
-                    image={DealsThree}
-                    alt="Car"
-                  />
-                </CardActionArea>
-              </Card>
-            </Grid>
-          </Grid>
+          {[DealsOne, DealsTwo, DealsThree].map((deal, index) => (
+            <Card
+              key={index}
+              sx={{
+                maxWidth: { xs: '100%', sm: 345 }, // Use 100% width on xs screens
+                overflow: "hidden",
+                mx: 1,
+                my: 2,
+                boxShadow: "1px -1px 2px #BC6F03, 0px 1px 2px #4C231A",
+              }}
+            >
+              <CardActionArea component={Link} to="#">
+                <CardMedia
+                  component="img"
+                  sx={{ height: '100%', overflow: "hidden" }}
+                  image={deal}
+                  alt="Deal"
+                />
+              </CardActionArea>
+            </Card>
+          ))}
         </Grid>
 
-        <Divider
-          orientation="vertical"
-          flexItem
-          sx={{
-            backgroundColor: (theme) => theme.palette.secondary.dark,
-            height: "auto",
-            mx: 2,
-          }}
-        />
+        {/* Optionally hide the Divider on mobile */}
+        {!isMobile && (
+          <Divider
+            orientation="vertical"
+            flexItem
+            sx={{
+              mx: 2,
+              my: { xs: 2, md: 0 }, // Add vertical margin on mobile
+              height: { md: "auto" }, // Auto height on larger screens
+            }}
+          />
+        )}
 
-        <Grid item xs={8}>
-          <Typography
-            variant="h4"
-            sx={{ my: 4, fontWeight: "bold" }}
-            color={"text.secondary"}
-          >
+        <Grid item xs={12} md={8}>
+          {/* Best Sellers Section */}
+          <Typography variant="h4" sx={{ my: 4, fontWeight: "bold" }} color="text.secondary">
             Best Sellers
           </Typography>
-          <Grid container spacing={1} sx={{ px: 1 }}>
-            {books
-              ?.slice(0, 6)
-              .map((item) => (
-                <Grid item xs={12} sm={4} key={item?.isbn}>
-                  <ProductCard
-                    id={item?.id}
-                    title={item?.title}
-                    img={item?.img}
-                    price={item?.price}
-                    date={item?.date}
-                    isbn={item?.isbn}
-                    author={item?.author}
-                    cover={item?.cover}
-                    language={item?.language}
-                    category={item?.category}
-                  />
-                </Grid>
-              ))}
+          {/* Grid for product cards */}
+          <Grid container spacing={1}>
+            {books?.slice(0, 6).map((item) => (
+              <Grid item xs={12} sm={6} md={4} key={item.isbn}>
+                <ProductCard {...item} />
+              </Grid>
+            ))}
           </Grid>
         </Grid>
       </Grid>

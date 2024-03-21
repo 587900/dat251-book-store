@@ -36,7 +36,7 @@ export const books = [
     date: "2016-12-17",
     category: "Fiction",
     language: "Spanish",
-    cover: "ardback",
+    cover: "Hardback",
     author: "J. F. K. Dolkien",
   },
   {
@@ -51,7 +51,7 @@ export const books = [
     date: "2021-11-06",
     category: "Fiction",
     language: "Spanish",
-    cover: "ardback",
+    cover: "Hardback",
     author: "Jesus Bushner",
   },
   {
@@ -66,7 +66,7 @@ export const books = [
     date: "2020-03-17",
     category: "Mystery",
     language: "English",
-    cover: "ardback",
+    cover: "Hardback",
     author: "J. D. Silanger",
   },
   {
@@ -81,7 +81,7 @@ export const books = [
     date: "2012-12-17",
     category: "Academic",
     language: "English",
-    cover: "ardback",
+    cover: "Hardback",
     author: "Albert Zweiwasser ",
   },
   {
