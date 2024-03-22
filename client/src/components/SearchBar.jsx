@@ -40,7 +40,12 @@ const SearchBar = ({ suggestions }) => {
           }}
           InputProps={{
             ...params.InputProps,
-            style: { padding: '3px 8px', borderRadius: '16px', boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)", },
+            style: {
+              padding: '3px 8px', 
+              borderRadius: '16px', 
+              boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)", 
+              backgroundColor: '#ffffff', 
+            },
             endAdornment: (
               <>
                 {inputValue && (

@@ -223,32 +223,35 @@ const Navbar = () => {
               justifyItems: "center",
             }}
           >
-            
             {isMobile ? (
-              <Link
-                to="/"
-                sx={{ color: "#fff", backgroundColor: "inherit" }}
-              >
-                <img
-                  src={LogoIcon}
-                  className="d-sm-block me-3 logo"
-                  alt="Logo The Book Club Icon Only"
-                  style={{ width: "45px", height: "45px" }}
-                />
-              </Link>
+              <>
+                <Link to="/" sx={{ color: "#fff", backgroundColor: "inherit" }}>
+                  <img
+                    src={LogoIcon}
+                    className="d-sm-block me-3 logo"
+                    alt="Logo The Book Club Icon Only"
+                    style={{ width: "45px", height: "45px" }}
+                  />
+                </Link>
+                <Box sx={{ flexGrow: 1, px: 1, ml: 2 }}>
+                  <SearchBar suggestions={[...books]} />
+                </Box>
+              </>
             ) : (
-              <Link to="/" sx={{ color: "#fff", backgroundColor: "inherit" }}>
-              <img
-                src={Logo}
-                className="d-sm-block me-3 logo"
-                alt="Logo The Book Club"
-                style={{ width: "172px", height: "40px" }}
-              />
-            </Link>
+              <>
+                <Link to="/" sx={{ color: "#fff", backgroundColor: "inherit" }}>
+                  <img
+                    src={Logo}
+                    className="d-sm-block me-3 logo"
+                    alt="Logo The Book Club"
+                    style={{ width: "172px", height: "40px" }}
+                  />
+                </Link>
+                <Box sx={{ flexGrow: 1, px: 5, ml: 2 }}>
+                  <SearchBar suggestions={[...books]} />
+                </Box>
+              </>
             )}
-            <Box sx={{ flexGrow: 1, px: 4, ml: 2 }}>
-              <SearchBar suggestions={[...books]} />
-            </Box>
             {/*#######################################################################*/}
             {/*MORE ICON*/}
             {/*#######################################################################*/}

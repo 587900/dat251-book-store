@@ -2,6 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Layout from "./pages/Layout";
+import ProductListing from "./pages/ProductListing";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 
@@ -16,6 +17,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<Home />} />
+            <Route path="/books" element={<ProductListing />} />
           </Route>
         </Routes>
       </ThemeProvider>
