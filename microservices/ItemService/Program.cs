@@ -7,13 +7,12 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-string bookDiscriminator = "BookDiscriminator";
+string bookDiscriminator = "discriminator";
 
 builder.Services.AddControllers();
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-    options.SerializerSettings.TypeNameHandling = TypeNameHandling.Auto;
     options.SerializerSettings.Converters.Add(
         JsonSubtypesConverterBuilder
         .Of(typeof(Book), bookDiscriminator)
