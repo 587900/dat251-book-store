@@ -1,0 +1,46 @@
+name: Linting
+on: [push, pull_request]
+permissions:
+  checks: write
+  contents: write
+jobs:
+  frontend-lint:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./client
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install Dependencies
+        run: npm install
+      - name: Run linters
+        uses: wearerequired/lint-action@v2
+        with:
+          continue_on_error: false
+          eslint: true
+          prettier: true
+          eslint_dir: client/
+          prettier_dir: client/
+  backend-lint:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./microservices
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Run linters
+        uses: wearerequired/lint-action@v2
+        with:
+          continue_on_error: false
+          dotnet_format: true
+          dotnet_format_dir: microservices/
