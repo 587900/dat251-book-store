@@ -9,7 +9,7 @@ namespace ItemServiceTest
     public class ItemServiceTest
     {
         static ItemServiceController bc = null!;
-        static readonly Book testBook = new()
+        static readonly Book testBook = new PhysicalBook()
         {
             Title = "Test",
             Author = "A",
@@ -69,7 +69,7 @@ namespace ItemServiceTest
         [TestMethod]
         public void PostItemOk()
         {
-            Book b = new()
+            Book b = new EBook()
             {
                 Title = "PostOkTest",
                 Author = "B"
@@ -84,7 +84,7 @@ namespace ItemServiceTest
         [TestMethod]
         public void PostItemConflict()
         {
-            Book b = new()
+            Book b = new PhysicalBook()
             {
                 Title = "PostConflictTest",
                 Author = "C"
@@ -97,12 +97,12 @@ namespace ItemServiceTest
         [TestMethod]
         public void PutItemOk()
         {
-            Book b = new()
+            Book b = new EBook()
             {
                 Title = "PutOkTest",
                 Author = "D"
             };
-            Book old = new()
+            Book old = new PhysicalBook()
             {
                 Title = "Test",
                 Author = "A"
@@ -117,12 +117,12 @@ namespace ItemServiceTest
         [TestMethod]
         public void PutItemNotFound()
         {
-            Book b = new()
+            Book b = new EBook()
             {
                 Title = "PutNotFoundTest",
                 Author = "E"
             };
-            Book old = new()
+            Book old = new PhysicalBook()
             {
                 Title = "Test",
                 Author = "A"
