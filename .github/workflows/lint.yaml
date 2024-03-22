@@ -23,10 +23,6 @@ jobs:
         with:
           eslint: true
           prettier: true
-          eslint_auto_fix: false
-          prettier_auto_fix: false
-          eslint_continue_on_error: false
-          prettier_continue_on_error: false
           eslint_dir: client/
           prettier_dir: client/
   backend-lint:
@@ -45,6 +41,4 @@ jobs:
         uses: wearerequired/lint-action@v2
         with:
           dotnet_format: true
-          dotnet_format_auto_fix: false
-          dotnet_format_continue_on_error: false
           dotnet_format_dir: microservices/
