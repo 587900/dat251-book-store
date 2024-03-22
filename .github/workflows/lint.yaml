@@ -23,6 +23,10 @@ jobs:
         with:
           eslint: true
           prettier: true
+          eslint_auto_fix: false
+          prettier_auto_fix: false
+          eslint_dir: client/
+          prettier_dir: client/
   backend-lint:
     runs-on: ubuntu-latest
     defaults:
@@ -39,3 +43,5 @@ jobs:
         uses: wearerequired/lint-action@v2
         with:
           dotnet_format: true
+          dotnet_format_auto_fix: false
+          dotnet_format_dir: microservices/
