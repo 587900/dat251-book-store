@@ -21,6 +21,7 @@ jobs:
       - name: Run linters
         uses: wearerequired/lint-action@v2
         with:
+          continue_on_error: false
           eslint: true
           prettier: true
           eslint_dir: client/
@@ -40,5 +41,6 @@ jobs:
       - name: Run linters
         uses: wearerequired/lint-action@v2
         with:
+          continue_on_error: false
           dotnet_format: true
           dotnet_format_dir: microservices/
