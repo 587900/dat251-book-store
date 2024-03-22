@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using ItemService.Models;
 using Newtonsoft.Json;
 using JsonSubTypes;
-using Microsoft.OpenApi.Models;
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
