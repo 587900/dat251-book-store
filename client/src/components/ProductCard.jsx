@@ -1,13 +1,12 @@
 import React from "react";
 import { format } from 'date-fns';
 import {
-  Box,
   Card,
   CardContent,
   CardMedia,
   Typography,
+  useTheme,
 } from "@mui/material";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { Link } from "react-router-dom";
 
 const ProductCard = ({
@@ -22,14 +21,19 @@ const ProductCard = ({
   cover
 }) => {
   const urlFriendlyProductName = title.toLowerCase().replace(/ /g, "-");
+  const theme = useTheme();
 
   return (
     <Card
       sx={{
         borderRadius: 2,
-        boxShadow: 1,
+        boxShadow: 3,
         cursor: "pointer",
-        mb: 2,
+        my: 1,
+        mx: 4,
+        [theme.breakpoints.up("md")]: {
+          mx: 0,
+        },
       }}
     >
       <CardMedia
@@ -41,8 +45,8 @@ const ProductCard = ({
           objectFit: "contain",
           borderTopLeftRadius: 2,
           borderTopRightRadius: 2,
-          background: "linear-gradient(to bottom, #F8F7F7, #EDEDED, #D0D0D0 )",
-          boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+          background: "linear-gradient(to bottom, #e7e7e7, #EDEDED, #D0D0D0 )",
+          boxShadow: "0px 4px 8px rgba(0,0,0,0.1)",
         }}
       />
       {/* Text details beneath the image */}
@@ -72,6 +76,9 @@ const ProductCard = ({
 
         <Typography variant="subtitle2" sx={{ mb: 0.5 }}>
           {author}
+        </Typography>
+        <Typography variant="subtitle2" sx={{ mb: 0.5 }}>
+          {category}
         </Typography>
         <Typography variant="body1" sx={{ mb: 0.5 }}>
           {cover} | {language}
